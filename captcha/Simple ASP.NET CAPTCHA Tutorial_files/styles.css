@@ -1,0 +1,138 @@
+﻿html, body 
+{
+    margin:0px;
+    padding:0px;
+    background:#E2DFDF;
+    height:100%;  
+    min-height:100%; 
+}
+
+TD 
+{
+ 
+  font-family:Tahoma;
+  font-size:11px;
+ 
+    
+}
+
+#list
+{
+    display:inline;
+    font-family:arial;
+    font-size:12px;
+}
+#list li
+{
+    display:inline;
+    font-family:arial;
+    font-size:12px;
+    
+
+}
+#list li a
+{
+    background:#E2DFDF;
+    float:right;
+    border-top:solid 1px #FFFFFF;
+    border-left:solid 1px #FFFFFF;
+    color:black;
+    padding:5px;
+    font-family:arial;
+    font-size:12px;
+}
+#list li a:hover
+{
+    background:#FFFFFF;
+}
+
+.lftmn_tab ul
+{
+  list-style:none; 
+  padding:0px;
+  margin:0px;  
+  width:140px;
+
+}
+.lftmn_tab li
+{
+   background:#E2DFDF;  
+   text-align:center;
+   border-bottom:solid 1px #FFFFFF;
+}
+.lftmn_tab li a
+{
+ text-decoration:none;
+ font-size:12px;
+ color:Black;
+}
+.lftmn_tab li a:hover
+{
+ text-decoration:none;
+ color:#0000AA;
+}
+
+.heading
+{
+   font-family:verdana;
+   font-size:14px;   
+}
+
+#footer
+{
+    padding:5px;
+}
+
+.m_head 
+{
+  color:Navy;
+  font-size:small;   
+}
+.m_head:hover
+{
+   color:Black;
+}
+.pin a
+{
+    color:Black;
+    font-size:12px;
+    text-decoration:none;
+}
+.pin a:hover
+{
+ color:Blue;   
+}
+.bcrumb a
+{
+   color:#0000AA;
+}
+.bcrumb a:hover
+{
+   color:#000000;
+}
+
+#mainAdv a
+{
+    color:Black;
+    text-decoration:none;
+}
+#mainAdv a:hover
+{
+    color:#0000FF;
+}
+.cats 
+{
+    width:150px;
+    height:160px;
+    font-family:Tahoma;
+    font-size:12px;
+}
+.details
+{
+    height:800px;
+}
+.search 
+{
+    font-size:11px;
+}
+

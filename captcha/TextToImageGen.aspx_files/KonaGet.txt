@@ -1,0 +1,18 @@
+teUrl='http://te.kontera.com/ContentLink/ContentLink?publisherId=102406&layout=adlinks&sId=142&cb=1264339589&creative=L&cn=in';
+directAdsPrefetch=true;
+setMaxLinksOnPage(8);
+konaPostalCode="";
+pageTopicVector="";
+addContentLink(26,325089,'ASP.Net',25,1,"","22727");
+addContentLink(44,165687,'database',42,1,"","22727");
+addContentLink(496,445379,'technology',470,1,"","22727");
+addContentLink(589,335887,'Microsoft',555,1,"","22727");
+addContentLink(644,173895,'PDF documents',606,1,"","7");
+addContentLink(802,350237,'advanced technology',754,1,"","22727");
+addContentLink(824,300470,'website',775,1,"","22727");
+addContentLink(953,461669,'developers',895,1,"","22727");
+
+konaTweakMode=16411;
+setKonaResults(1,1,"L|0|0|0|white|none&pRfr=http://www.c-sharpcorner.com/UploadFile/oguzaltuncu/TextToImageGen08012005023259AM/TextToImageGen.aspx&dc_aff_id=");
+onKonaReturn(1);
+

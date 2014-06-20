@@ -1,0 +1,40 @@
+.ArticleTitle 
+{
+	font: 11pt Verdana, Helvetica;
+	font-weight:bold;
+	color: #cc6633;
+}
+.ArticleSubtitle
+{
+	font: 9pt Verdana, Helvetica;
+	color: #cc6633;
+	line-height: 18px;
+	font-weight:bold;
+}
+
+.ArticleContent
+{
+	font: 10pt Verdana, Helvetica;
+	color: #333333;
+	line-height: 20px;
+}
+.ArticleCode
+{
+	background-color: #fdffe8;
+	font-family: Courier New;
+	font-size: 9pt;
+	color: #800000;
+}
+.ImageTitle, .CodeTitle
+{
+	font: 9pt Verdana, Helvetica;
+	color: #003044;
+	text-decoration: underline; 
+}
+p { text-indent: 0em; margin-top: 0; margin-bottom: 0;margin-left:0 }
+
+
+/* To Hide Current Node*/
+ .HideCurrentNode{
+        display:none;
+}

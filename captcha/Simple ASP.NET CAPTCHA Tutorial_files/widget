@@ -1,0 +1,553 @@
+(function (WIN) {
+    var RPXNOW = {};
+    if ((typeof WIN.RPXNOW != "undefined") && WIN.RPXNOW) {
+        RPXNOW = WIN.RPXNOW;
+    }
+
+    RPXNOW.loaded = false;
+    RPXNOW.show = function() {
+        RPXNOW.show_on_load = true;
+    };
+    RPXNOW.always_open = false;
+    RPXNOW.overlay = false;
+    RPXNOW.language_preference = null;
+    RPXNOW.default_provider = null;
+    RPXNOW.lso_submit_action = null;
+    RPXNOW.token_url = null;
+    RPXNOW.realm = null;
+    RPXNOW.domain = null;
+    RPXNOW.flags = null;
+    RPXNOW.email = null;
+    RPXNOW.openid_proxy_url = null;
+    RPXNOW.ssl = true;
+
+    var DOC = WIN.document;
+    var QUIRKS_MODE = DOC.compatMode != 'CSS1Compat';
+    var QBODY = null; // gets set in loadListener
+
+    var TOKEN_URL_RE = new RegExp("^https?:\\\/\\\/([a-z0-9]([\\-a-z0-9]*[a-z0-9])?\\.)*[a-z0-9]([\\-a-z0-9]*[a-z0-9])?(:[0-9]+)?(\\\/[^?#]*(\\?[^#]*)?)?$", "i");
+    var LSO_SUBMIT_ACTION_RE = new RegExp("^https:\\\/\\\/([a-z0-9]([\\-a-z0-9]*[a-z0-9])?\\.)*[a-z0-9]([\\-a-z0-9]*[a-z0-9])?(:[0-9]+)?(\\\/[^?#]*(\\?[^#]*)?)?$", "i");
+
+    var IE6 = (function () {
+	var ua = navigator && navigator.userAgent;
+	var m=ua.match(/MSIE\s([^;]*)/);
+	if (m&&m[1]) {
+	    var c = 0;
+            return (6 == parseFloat(m[1].replace(/\./g, function() {
+                return (c++ == 1) ? '' : '.';
+            })));
+        } else {
+	    return false;
+	}
+    })();
+
+    var LOADING_STRINGS = {"ko":"\ub85c\ub529","nl":"Laden","et":"Laetakse","pl":"Loading","hr":"U\u010ditavanje","pt":"Carregando","es":"Cargando","el":"loading","de":"Lade","hu":"Bet\u00f6lt\u00e9s","zh-CHT":"\u8f09\u5165\u4e2d","ru":"\u0417\u0430\u0433\u0440\u0443\u0437\u043a\u0430","fr":"Chargement","ro":"\u00cenc\u0103rcare","fi":"Ladataan","sv-SE":"Laddar","cs":"Na\u010d\u00edt\u00e1n\u00ed","it":"Caricamento","sr":"U\u010ditavam","zh":"\u8f7d\u5165\u4e2d","da":"Indl\u00e6ser","en":"Loading","bg":"\u0417\u0430\u0440\u0435\u0436\u0434\u0430\u043d\u0435","ja":"\u8aad\u307f\u8fbc\u3093\u3067\u3044\u307e\u3059","vi":"\u0110ang t\u1ea3i","no":"Laster","pt-BR":"Carregando"};
+    var PLATFORM = null;
+    var HOST = "rpxnow.com";
+    var DEFAULT_SCHEME = "https";
+    var COMMON_UI_PARAMS = ["token_url","language_preference","user_identifier","flags","default_provider","email","openid_proxy_url"];
+
+    var SECURE = DOC.location.protocol === 'https:';
+    var CDN_BASE = (SECURE ?
+                    'https://s3.amazonaws.com/static.rpxnow.com' :
+                    'http://cdn.rpxnow.com');
+
+    var Util = {
+        log: function(msg) {
+            if (WIN.console) {WIN.console.log('RPXNow: ' + msg);}
+        },
+        detectPlatform: function() {
+            var o={
+                ie:0,
+                opera:0,
+                gecko:0,
+                webkit: 0,
+                mobile: null,
+                air: 0
+            };
+            var ua=navigator.userAgent, m;
+
+            // Modern KHTML browsers should qualify as Safari X-Grade
+            if ((/KHTML/).test(ua)) {
+                o.webkit=1;
+            }
+            // Modern WebKit browsers are at least X-Grade
+            m=ua.match(/AppleWebKit\/([^\s]*)/);
+            if (m&&m[1]) {
+                o.webkit=parseFloat(m[1]);
+
+                // Mobile browser check
+                if (/ Mobile\//.test(ua)) {
+                    o.mobile = "Apple"; // iPhone or iPod Touch
+                } else {
+                    m=ua.match(/NokiaN[^\/]*/);
+                    if (m) {
+                        o.mobile = m[0]; // Nokia N-series, ex: NokiaN95
+                    }
+                }
+
+                m=ua.match(/AdobeAIR\/([^\s]*)/);
+                if (m) {
+                    o.air = m[0]; // Adobe AIR 1.0 or better
+                }
+            }
+
+            if (!o.webkit) { // not webkit
+                // @todo check Opera/8.01 (J2ME/MIDP; Opera
+                // Mini/2.0.4509/1316; fi; U; ssr)
+                m=ua.match(/Opera[\s\/]([^\s]*)/);
+                if (m&&m[1]) {
+                    o.opera=parseFloat(m[1]);
+                    m=ua.match(/Opera Mini[^;]*/);
+                    if (m) {
+                        o.mobile = m[0]; // ex: Opera Mini/2.0.4509/1316
+                    }
+                } else { // not opera or webkit
+                    m=ua.match(/MSIE\s([^;]*)/);
+                    if (m&&m[1]) {
+                        o.ie=parseFloat(m[1]);
+                    } else { // not opera, webkit, or ie
+                        m=ua.match(/Gecko\/([^\s]*)/);
+                        if (m) {
+                            o.gecko=1; // Gecko detected, look for revision
+                            m=ua.match(/rv:([^\s\)]*)/);
+                            if (m&&m[1]) {
+                                o.gecko=parseFloat(m[1]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return o;
+        },
+        getViewportHeight: function() {
+            if ( (DOC.compatMode || PLATFORM.ie > 0) && !PLATFORM.opera ) {
+                return QBODY.clientHeight; // IE, Gecko
+            } else {
+                return WIN.innerHeight; // Safari, Opera
+            }
+        },
+        getViewportWidth: function() {
+            if (DOC.compatMode || PLATFORM.ie > 0) {
+                return QBODY.clientWidth; // IE, Gecko, Opera
+            } else {
+                return WIN.innerWidth;  // Safari
+            }
+        },
+        getDocumentHeight: function() {
+            return Math.max(QBODY.scrollHeight, Util.getViewportHeight());
+        },
+        getDocumentWidth: function() {
+            return Math.max(QBODY.scrollWidth, Util.getViewportWidth());
+        },
+        getQueryStringValue: function(url_str, key) {
+            var match = null;
+            var query_str = url_str.match(/^[^?]*(?:\?([^#]*))?(?:$|#.*$)/)[1];
+            // This regex has mutable state changed by the exec call.
+            // Re-create it each time getQueryStringValue is called
+            var _query_regex = new RegExp("([^=]+)=([^&]*)&?", "g");
+            while ((match = _query_regex.exec(query_str)) !== null) {
+                if (decodeURIComponent(match[1]) == key) {
+                    return decodeURIComponent(match[2]);
+                }
+            }
+            return null;
+        },
+        cssImg: function(name) {
+            return "url(" + CDN_BASE + "/images/" + name + ")";
+        },
+        isNull: function(obj) {
+            return obj === null;
+        },
+        isUndefined: function(obj) {
+            return typeof obj === 'undefined';
+        }
+    };
+
+    Util.QueryBuilder = function (dict) {
+        var key;
+        this.pairs = [];
+        if (dict && typeof dict == "object") {
+            for (key in dict) { if (dict.hasOwnProperty(key)) {
+                this.add(key, dict[key]);
+            }}
+        }
+    };
+
+    Util.QueryBuilder.prototype = {
+        add: function (key, value) {
+            var enc = encodeURIComponent;
+            if (!Util.isUndefined('undefined') && !Util.isNull(value)) {
+                this.pairs.push([enc(key), enc(value)].join("="));
+            }
+        },
+        toString: function () {
+            return this.pairs.join("&");
+        }
+    };
+
+    PLATFORM = Util.detectPlatform();
+
+    var genSigninUrl = function(token_url, domain) {
+        if (!TOKEN_URL_RE.test(token_url)) {
+            Util.log("Error - token_url must be an absolute URL with no fragment.");
+        }
+
+        var lso_submit_action = null;
+        if (RPXNOW.lso_submit_action) {
+            if (LSO_SUBMIT_ACTION_RE.test(RPXNOW.lso_submit_action)) {
+                lso_submit_action = RPXNOW.lso_submit_action;
+            } else {
+                Util.log("Error - RPXNOW.lso_submit_action must be an absolute HTTPS URL with no fragment.");
+            }
+        }
+
+        var host = HOST;
+        var rp_id = null;
+
+        if (RPXNOW.rp_id) {
+            rp_id = RPXNOW.rp_id;
+        } else if (RPXNOW.domain) {
+            host = RPXNOW.domain;
+        } else if (RPXNOW.realm) {
+            if (RPXNOW.realm.match(/\./)) {
+                host = RPXNOW.realm;
+            } else {
+                host = RPXNOW.realm + "." + HOST;
+            }
+        } else if (domain) {
+            host = domain;
+        }
+
+        var query = new Util.QueryBuilder();
+        query.add('token_url', token_url);
+
+        var signin_url = null;
+        var scheme = RPXNOW.ssl ? DEFAULT_SCHEME : 'http';
+        if (lso_submit_action) {
+            query.add('lso_submit_action', lso_submit_action);
+            signin_url = scheme + "://" + host + "/openid/lso_popup?";
+        } else {
+            signin_url = scheme + "://" + host + "/openid/popup?";
+        }
+
+        if (rp_id) {
+            query.add('rp_id', rp_id);
+        }
+
+        for (var ofi = 0; ofi < COMMON_UI_PARAMS.length; ofi++) {
+            var fieldname = COMMON_UI_PARAMS[ofi];
+            if (fieldname != 'token_url' && RPXNOW[fieldname]) {
+                query.add(fieldname, RPXNOW[fieldname]);
+            }
+        }
+
+        return signin_url + query.toString();
+    };
+
+    var LoginBox = function() {
+        var _this = this;
+
+        var s = null;
+        this.container = DOC.createElement("div");
+        this.container.className = "rpx_popup_container";
+        s = this.container.style;
+
+        var bg_png = "popup_bg.png/a7565f92533a6bdf05617e311e4a9833.png";
+        var bg_gif = "popup_bg.gif/24355835f62fe68c5fd05cd1dfe4d0e5.gif";
+        var bglso_png = "popup_bg_lso.png/4d211313ddba83483b57fa23edd62708.png";
+        var bglso_gif = "popup_bg_lso.gif/0c3bbca85fff13223c282d3350b39a4b.gif";
+
+        var bg = null;
+        if (IE6) {
+            bg = RPXNOW.lso_submit_action ? bglso_gif : bg_gif;
+        } else {
+            bg = RPXNOW.lso_submit_action ? bglso_png : bg_png;
+        }
+
+        s.backgroundImage = Util.cssImg(bg);
+        s.backgroundColor = "transparent";
+        s.position = "relative";
+        s.width = '440px';
+
+        // Temporary placeholder
+        this.ifrm = this.container.appendChild(DOC.createElement('span'));
+        if (!RPXNOW.always_open) {
+            this._appendCloseLink("X");
+        }
+
+        var td = DOC.createElement("td");
+        s = td.style;
+        s.padding = "0px";
+        s.margin = "0px";
+        s.border = "0px";
+        s.borderCollapse = "collapse";
+        s.borderSpacing = "0";
+        s.borderColor ="#FFF";
+        s.color ="#FFF";
+        s.backgroundColor = "transparent";
+        td.appendChild(this.container);
+
+        var tr = DOC.createElement("tr");
+        tr.style.backgroundColor = "transparent";
+        tr.appendChild(td);
+
+        var tbody = DOC.createElement("tbody");
+        tbody.style.backgroundColor = "transparent";
+        tbody.appendChild(tr);
+
+        var table = DOC.createElement("table");
+        table.className = "rpx_popup_table";
+        s = table.style;
+        s.borderCollapse = "collapse";
+        s.backgroundColor = "transparent";
+        s.margin = "auto";
+        s.width = "440px";
+        table.appendChild(tbody);
+
+        this.outer = DOC.createElement("div");
+        this.outer.className = "rpx_popup_overlay";
+        s = this.outer.style;
+        s.zIndex = 10000;
+        s.backgroundColor = "transparent";
+
+        var fromTop = 125 + "px";
+        if (IE6) {
+            // IE6 doesn't properly support "position: fixed" so we
+            // fake it
+            s.position = "absolute";
+            s.top = QBODY.scrollTop + "px";
+
+            var scrollListener = function () {
+                _this.outer.style.top = QBODY.scrollTop + "px";
+            };
+            WIN.attachEvent("onscroll", scrollListener);
+        } else {
+            s.position = "fixed";
+            s.top = "0px";
+        }
+        s.overflow = "visible";
+        s.display = "none";
+        s.textAlign = "center";
+        s.left = "0px";
+        s.height = Util.getDocumentHeight() + "px";
+        s.width = Util.getDocumentWidth() + "px";
+
+        s.paddingTop = fromTop;
+        if (RPXNOW.overlay) {
+            var trans = DOC.createElement("div");
+            s = trans.style;
+            s.position = 'absolute';
+            s.top = '0';
+            s.left = '0';
+            s.width = '100%';
+            s.height = '100%';
+            s.backgroundColor = "black";
+            if (WIN.ActiveXObject) {
+                s.filter = "alpha(opacity=40)";
+            } else {
+                s.opacity = s.KhtmlOpacity = s.MozOpacity = "0.4";
+            }
+            this.outer.appendChild(trans);
+        }
+
+        this.outer.appendChild(table);
+
+        if (DOC.body.firstChild) {
+            DOC.body.insertBefore(this.outer, DOC.body.firstChild);
+        } else {
+            DOC.body.appendChild(this.outer);
+        }
+    };
+
+    LoginBox.prototype = {
+        createIFrame: function() {
+            var loading_str = LOADING_STRINGS[RPXNOW.language_preference];
+            if (!loading_str) {
+                loading_str = LOADING_STRINGS.en;
+            }
+
+            var ifrm = DOC.createElement('iframe');
+            ifrm.frameBorder = 0; ifrm.scrolling = 'no';
+            ifrm.src = "javascript:'<html style=\"margin: 0px; padding: 0px;\"><body style=\"margin: 0px; padding: 0px;background-color: #F6F6F6; \"><h3 style=\"font-family: sans-serif; margin: 0px; padding: 0.65em; *padding: 0.45em; color: #111; \">" + loading_str + "...</h3></body></html>'";
+            ifrm.name = "rpx_auth_" + (new Date()).getTime();
+
+            var s = ifrm.style;
+            s.width = '400px'; s.height = '40px'; s.margin = '0px';
+            s.padding = '0px'; s.border = '0px'; s.position = 'absolute';
+            s.top = '20px'; s.left = '20px';
+            if (this.ifrm) {
+                this.container.replaceChild(ifrm, this.ifrm);
+            }
+            this.ifrm = ifrm;
+        },
+
+        _appendCloseLink: function(text) {
+            var closelink = DOC.createElement("div");
+            closelink.appendChild(DOC.createTextNode(text));
+
+            var s = closelink.style;
+            s.color = "#111";
+            s.fontWeight = "bold";
+            s.fontSize = "13px";
+            s.fontFamily = "arial, sans-serif";
+            s.textAlign = "right";
+            s.height = "16px";
+            s.cursor = "pointer";
+            s.position = "absolute";
+            s.right = "20px";
+            s.top = "20px";
+
+            this.container.appendChild(closelink);
+        },
+
+        show: function (token_url, domain) {
+            var _this = this;
+
+            var url = genSigninUrl(token_url, domain);
+            if (!url) {
+                return;
+            }
+            var new_iframe = this.loaded_token_url != url;
+            if (new_iframe) {
+                this.createIFrame();
+                this.loaded_token_url = url;
+            }
+
+            var fireShow = function() {
+                _this.outer.style.display = 'block';
+            };
+
+            WIN.setTimeout(fireShow, 1);
+            WIN.setTimeout(function() {
+                if (new_iframe) {
+                    _this.ifrm.contentWindow.location.replace(url);
+                }
+
+                var fin_height = (RPXNOW.lso_submit_action && LSO_SUBMIT_ACTION_RE.test(RPXNOW.lso_submit_action)) ? 320 : 260;
+                _this.grow(40, fin_height);
+            }, 1);
+
+            return false;
+        },
+
+        grow: function(i, fin_height) {
+            if ((PLATFORM.ie > 0 && PLATFORM.ie < 7) ||
+                RPXNOW.show_on_load || RPXNOW.always_open) {
+                this.ifrm.style.height = fin_height + 'px';
+                this.container.style.height = (fin_height + 40) + 'px';
+            } else {
+                this.ifrm.style.height = i + 'px';
+                this.container.style.height = (i + 40) + 'px';
+                if (i < fin_height) {
+                    var _this = this;
+                    WIN.setTimeout(function() {
+                        _this.grow(i + 20, fin_height);
+                    }, 3);
+                }
+            }
+        },
+
+        hide: function () {
+            this.outer.style.display = "none";
+        },
+
+        resize: function () {
+            var _outer = this.outer;
+            _outer.style.height = Util.getViewportHeight() + "px";
+            _outer.style.width = Util.getViewportWidth() + "px";
+
+            WIN.setTimeout(function () {
+                _outer.style.height = Util.getDocumentHeight() + "px";
+                _outer.style.width = Util.getDocumentWidth() + "px";
+            }, 1);
+        }
+    };
+
+    var loadListener = function() {
+        QBODY = (QUIRKS_MODE) ? DOC.body : DOC.documentElement;
+        var login_box = new LoginBox();
+        RPXNOW.show = function (token_url, domain) {
+            if (typeof(token_url) === 'undefined') {
+                token_url = RPXNOW.token_url;
+            }
+            if (!token_url) {
+                Util.log("Error - RPXNOW.token_url is undefined.");
+            }
+            login_box.show(token_url, domain);
+            return false;
+        };
+
+        var hookPopupToRpxLink = function(element) {
+            var token_url = undefined;
+            var domain = undefined;
+            var href = element.href;
+            if (!RPXNOW.token_url) {
+                token_url = Util.getQueryStringValue(href, "token_url");
+            }
+
+            var domain_match = href.match(/https?:\/\/([^\/]+)/);
+            if (domain_match !== null) {
+                domain = domain_match[1];
+            }
+
+            element.onclick = function () {
+                RPXNOW.show(token_url, domain);
+                return false;
+            };
+        };
+
+        // hook an onclick listener into all links with class rpxnow
+        var arrElements = DOC.getElementsByTagName("a");
+        var oRegExp = new RegExp("(^|\\s)rpxnow(\\s|$)");
+
+        for (var i = 0; i < arrElements.length; i++) {
+            var oElement = arrElements[i];
+            if(oRegExp.test(oElement.className)) {
+                hookPopupToRpxLink(oElement);
+            }
+        }
+
+        if (!RPXNOW.always_open) {
+            var closeListener = function() {
+                if (login_box) {
+                    login_box.hide();
+                }
+            };
+
+            if (WIN.ActiveXObject) {
+                QBODY.attachEvent('onclick', closeListener);
+            } else {
+                DOC.documentElement.addEventListener(
+                    'click', closeListener, false);
+            }
+        }
+
+        if (RPXNOW.show_on_load || RPXNOW.always_open) {
+            RPXNOW.show();
+        }
+
+        var resizeListener = function () {
+            if (login_box) {
+                login_box.resize();
+            }
+        };
+
+        if (WIN.ActiveXObject) {
+	    if (!IE6) {
+		WIN.attachEvent('onresize', resizeListener);
+	    }
+        } else {
+            WIN.addEventListener('resize', resizeListener, false);
+        }
+    };
+
+    WIN.RPXNOW = RPXNOW;
+
+    if (WIN.ActiveXObject) {
+        WIN.attachEvent('onload', loadListener);
+    } else {
+        WIN.addEventListener('load', loadListener, false);
+    }
+})(this);

@@ -1,0 +1,89 @@
+﻿body {text-align:left;font-size:13px;
+      font-family:Arial,Helvetica,sans-serif;
+}
+H1{font-family:Arial,Helvetica,sans-serif;font-size:20px;color:#3366FF; margin-top:20px;}
+H2{font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#3366FF;}
+H3{font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#3366FF;
+margin-top:10px;
+margin-bottom:0px;}
+
+ #header {margin:0 auto;
+ width: 948px;
+ padding: 8px;
+}
+#leftCol { 
+ color: #333;
+ border: 1px solid #ddd;
+ background-color:#fff;
+ margin: 0px 5px 5px 0px;
+ padding: 10px;
+ width: 190px;
+}
+#content { 
+ border: 1px solid #ddd;
+ margin: 0px 5px 5px 0px;
+ padding: 10px;
+}
+#rightCol { 
+ color: #333;
+ margin: 0px 0px 5px 0px;
+ padding: 0px;
+}
+#mainTable { margin:0 auto; }
+#footer  
+{
+ margin:0 auto;
+ text-align: center;
+ width: 900px;
+ clear: both;
+ color: #333;
+ padding: 8px;
+}
+.bulletMain A:link {
+text-decoration: none;
+color:#000000;
+}
+.bulletMain A:visited {
+text-decoration: none;
+color:#000000;
+}
+.bulletMain A:hover {
+text-decoration: underline;
+color:#3333FF;
+}
+.bulletMain {text-indent:10px;}
+.tblDown {
+margin-right:4;
+margin-top:5;
+margin-bottom:10;
+}
+
+
+.TblRight {
+vertical-align:top;
+}
+.tblMain {
+border: 1px double #CCCCCC;
+}
+
+.MenuCaption A:link{
+text-decoration: none;
+font-weight:bold;
+color:#3333FF;
+}
+.MenuCaption A:hover{
+text-decoration: underline;
+font-weight:bold;
+color:#3333FF;
+}
+.MenuCaption A:visited{
+text-decoration: none;
+font-weight:bold;
+color:#3333FF;
+}
+.ArticleCodeSnippet {
+border: 1px solid #cccccc;
+font-family: Courier New, Courier, mono;
+font-size: 14px;
+background-color: #FFFFCC;
+}

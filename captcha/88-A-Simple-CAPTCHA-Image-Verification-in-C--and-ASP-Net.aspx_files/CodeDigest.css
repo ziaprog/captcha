@@ -1,0 +1,458 @@
+﻿body {
+	margin-left: 5px;
+	margin-top: 0px;
+	margin-right: 5px;
+	margin-bottom: 0px;
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:12px;
+	color:#555555;
+	line-height:18px;
+}
+a
+{
+	color: #555555;
+}
+.ArticleHeader
+{
+	background-color:#bac3cc;	
+}
+.PostCategory
+{
+	font: 14pt Verdana, Helvetica;
+	margin-top: 4px;
+	letter-spacing: -0.5pt;
+	text-align:center;
+	color:#325f95;
+	background-color:#bac3cc;		
+}
+.Post
+{
+	margin-bottom: 8px;
+	margin-right: 2px;	
+}
+.PostTitle
+{
+	font: 11pt Verdana, Helvetica;
+	margin-top: 4px;
+	letter-spacing: -0.5pt;
+	font-weight:bold;
+}
+.PostTitle a
+{
+	text-decoration: none;
+	color: #cc6633;
+}
+.PostTitle a:visited
+{
+	color: #cc6633;
+}
+.PostTitle a:hover
+{
+	color: #cc6633;
+	background-color: #ffeecc;
+}
+.PostSubtitle
+{
+	font: 9pt Verdana, Helvetica;
+	color: #003044;
+	line-height: 18px;
+}
+.PostInfo
+{
+	border-top: dotted 1px #cccccc;
+	margin-top: 6px;
+	padding-top: 4px;
+	font: 8pt Verdana, Helvetica;
+	color: #999999;
+}
+.PostBody
+{
+	line-height: 160%;
+}
+.PostDetails
+{
+	width: 100%;
+	padding: 0 0 0 0;
+}
+/* Article Heading Style */
+div#nifty{ margin: 0 10%;background: #bac3cc; background-image: url(topmidbg.gif)}
+b.rtop, b.rbottom{display:block;background: #FFF}
+b.rtop b, b.rbottom b{display:block;height: 1px;
+    overflow: hidden; background: #c9d2d5}
+b.r1{margin: 0 5px}
+b.r2{margin: 0 3px}
+b.r3{margin: 0 2px}
+b.rtop b.r4, b.rbottom b.r4{margin: 0 1px;height: 2px}
+/*End Article Heading Style */
+
+li{
+	list-style-image:url(arrow1.gif);
+}
+input, select, textarea 
+{
+	font-family: Verdana, Helvetica, sans-serif;
+	font-size:11px;
+	color:#333333;
+	border: solid 1px #CCCCCC;
+}
+.Message 
+{
+	font-family:Verdana, Helvetica, sans-serif;
+	font-size:11px;
+	font-weight:bold;
+	color: #dc5600;
+}
+.profileimage 
+{
+	padding: 3px 3px 3px 3px;
+	border: solid 1px #CCCCCC;
+	background-color: White;
+	width: 80px;
+	height: 80px;
+}
+.topmidGrey {
+	background-image: url(topmidbg.gif);
+	background-repeat: repeat-x;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #475a6d;
+}
+.topleftGrey
+{
+	background-image: url(topleft.gif);
+}
+.toprightGrey
+{
+	background-image: url(topright.gif);
+}
+/*Common For all box */
+.bottomleft
+{
+	background-image: url(botleft.gif);
+	background-repeat:repeat-x;
+}
+.bottomright
+{
+	background-image: url(botright.gif);
+	background-repeat:repeat-x;
+}
+.midleft {
+	background-image: url(midleft.gif);
+	background-repeat: repeat-y;
+}
+.midright {
+	background-image: url(midright.gif);
+	background-repeat: repeat-y;
+}
+/*Common For all box */
+
+/*Blue Box*/
+.topmidBL {
+	background-image: url(topmidbgBL.gif);
+	background-repeat: repeat-x;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #ffffff;
+}
+/* For Hyperlink list with arrow  */
+.topmidBLCNT ul li a {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	text-decoration:none;
+	color: #555555;
+	line-height:15px;
+	margin-left:12px;
+}
+.topmidBLCNT ul li a:hover {
+	text-decoration: underline;
+}
+.topleftBL
+{
+	background-image: url(topleftBL.gif);
+}
+.toprightBL
+{
+	background-image: url(toprightBL.gif);
+}
+/*End Blue Box */
+/* Green Box */
+.topmidGR {
+	background-image: url(topmidbgGR.gif);
+	background-repeat: repeat-x;
+	font-family: Verdana,Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #ffffff;
+}
+.topmidGRCNT ul li a {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	text-decoration:none;
+	color: #555555;
+	line-height:15px;
+}
+.topmidGRCNT ul li a:hover {
+	text-decoration: underline;
+}
+.topleftGR
+{
+	background-image: url(topleftGR.gif);
+}
+.toprightGR
+{
+	background-image: url(toprightGR.gif);
+}
+/*End Green Box */
+
+/* CD Green Box */
+.topmidCDGR {
+	background-image: url(topmidbgCDGR.gif);
+	background-repeat: repeat-x;
+	font-family: Verdana,Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #ffffff;
+}
+.topmidCDGRCNT ul li a {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	text-decoration:none;
+	color: #555555;
+	line-height:15px;
+}
+.topmidCDGRCNT ul li a:hover {
+	text-decoration: underline;
+}
+.topleftCDGR
+{
+	background-image: url(topleftCDGR.gif);
+}
+.toprightCDGR
+{
+	background-image: url(toprightCDGR.gif);
+}
+/*End Green Box */
+
+
+/* Blue 2 Box */
+.topmidBL2 {
+	background-image: url(topmidbgBL2.gif);
+	background-repeat: repeat-x;
+	font-family: Verdana,Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #ffffff;
+}
+.topmidBL2CNT {
+	font-family: Verdana,Arial, Helvetica, sans-serif;
+}
+.topleftBL2
+{
+	background-image: url(topleftBL2.gif);
+}
+.toprightBL2
+{
+	background-image: url(toprightBL2.gif);
+}
+/* End Blue 2 Box */
+/*Orange Box */
+.topmidOR {
+	background-image: url(topmidbgOR.gif);
+	background-repeat: repeat-x;
+	font-family: Verdana,Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #ffffff;
+}
+.topmidORCNT ul li a {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	text-decoration:none;
+	color: #555555;
+	line-height:15px;
+}
+.topmidORCNT ul li a:hover {
+	text-decoration: underline;
+}
+.topleftOR
+{
+	background-image: url(topleftOR.gif);
+}
+.toprightOR
+{
+	background-image: url(toprightOR.gif);
+}
+/* end Orange Box */
+.botmidbg {
+	background-image: url(botmid.gif);
+	background-repeat: repeat-x;
+}
+
+.footer {
+	background-color:#CCCCCC;
+	color:#FFFFFF;
+	height: 22px;
+}
+
+/* Article page */
+.theadlft {
+	background-image:url(thead11.gif);
+	background-repeat:no-repeat;
+	background-position:right;
+}
+.theadmid {
+	background-image:url(thead12.gif);
+	background-repeat:repeat-x;
+	font-family: Verdana,Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bolder;
+	color:#475a6d;
+}
+.theadrit {
+	background-image:url(thead13.gif);
+	background-repeat:no-repeat;
+	background-position:left;	
+}
+/* End Article page */
+
+/* for LakeQuincy Ad */
+.AdTitle
+{
+	font: 9pt Verdana, Helvetica;
+	color: #003044;
+	line-height: 18px;	
+}
+.AdTitle a
+{
+	font: 11pt Verdana, Helvetica;
+	text-decoration: none;
+	color: #cc6633;
+	font-weight:700;
+	letter-spacing:-0.5pt;
+}
+.AdTitle a:visited
+{
+	color: #cc6633;
+}
+.AdTitle a:hover
+{
+	color: #cc6633;
+	background-color: #ffeecc;
+}
+/* End LakeQuincy Ad */
+.Gadgets {
+	background-image: url(GreyBG.jpg);
+	background-repeat: repeat-x;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #324151;
+}
+/* Similar Article Gadegts */
+.ArtTitle
+{
+	font: 9pt Verdana, Helvetica;
+	margin-top: 4px;
+	letter-spacing: -0.5pt;
+	font-weight:bold;
+}
+.ArtTitle a
+{
+	text-decoration: none;
+	color: #475a6d;
+}
+.ArtTitle a:visited
+{
+	color: #475a6d;
+}
+.ArtTitle a:hover
+{
+	color: #475a6d;
+	background-color: #ffeecc;
+}
+/* END Similar Article Gadegts*/
+
+/* Prize */
+.PrizeTitle
+{
+	font: 11pt Verdana, Helvetica;
+	margin-top: 4px;
+	letter-spacing: -0.5pt;
+	font-weight:bold;
+	color: #cc6633;
+}
+.PrizeDesc
+{
+	border-bottom: dotted 2px #cccccc;
+	margin-top: 6px;
+	padding-top: 4px;	
+}
+.prizeimage 
+{
+	padding: 4px 4px 4px 4px;
+	border: solid 1px #CCCCCC;
+	background-color: White;
+	width: 160px;
+	height: 160px;
+}
+/*Code Tags*/
+#tagCloud
+{
+	width:600px;
+	border:solid 2px #ccc;
+	padding:5px;
+	margin-bottom:10px;
+	text-align:justify;
+}
+
+#tagCloud A
+{
+	text-decoration:none;
+	margin-left:5px;
+	margin-right:5px;
+	font-family:Trebuchet MS, Verdana, Arial;
+	text-transform:lowercase;
+}
+
+#tagCloud A:hover
+{
+	color:#a90606;
+	text-decoration:underline;
+}
+
+#tagCloud A.weight1
+{
+	color: #f26400;
+	font-size: 14pt;
+	font-weight:bolder;
+}
+#tagCloud A.weight2
+{
+	color: #8a56cb;
+	font-size:11pt;
+	font-weight:bolder;
+}
+#tagCloud A.weight3
+{
+	color: #009eff;
+	font-size: 10pt;
+	font-weight:bolder;
+}
+#tagCloud A.weight4
+{
+	color: #64a34b;
+	font-size: 9pt;
+}
+#tagCloud A.weight5
+{
+	color: #475a6d;
+	font-size: 8pt;
+}
+/*End Code Tags*/
+ul
+{
+	margin-left:20px;
+	padding:0px;
+}

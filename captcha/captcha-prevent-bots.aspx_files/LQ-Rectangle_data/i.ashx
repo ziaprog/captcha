@@ -1,0 +1,1 @@
+document.write("<a href=\"http://a.lakequincy.com/c.ashx?channel=1&format=6&pageid=589B95DE-2A78-EC76-7617-E500C9720E7A&publisher=160&&zone=1&country=IN&userguid=f7d27b06-15d9-46c1-9e2d-77a826481a60&placement=4338&creative=3089&\" target=\"_top\" ><img src=\"http://a.lakequincy.com/img/633906774533199893.jpg\" border=\"0\" height=\"250\" width=\"300\" alt=\"Telerik\" /></a>");

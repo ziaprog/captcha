@@ -1,0 +1,13 @@
+﻿.NonPrintable
+    {
+      display: none;
+      width:0px;
+    }
+    .Printable
+    {
+		width:100%;
+    }
+ /* To Hide Current Node*/
+ .HideCurrentNode{
+        display:none;
+}

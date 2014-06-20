@@ -1,0 +1,751 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="ctl00_Head1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+
+<title>
+	Simple ASP.NET CAPTCHA Tutorial
+</title><meta name="keywords" content="Simple ASP.NET CAPTCHA Tutorial,Asp,javascript,php,shopping cart,articles,questions"><meta name="description" content="Simple ASP.NET CAPTCHA Tutorial"><link href="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/styles.css" rel="stylesheet" type="text/css"><link media="all" href="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/widget27.css" type="text/css" rel="stylesheet"></head><body><div style="overflow: visible; z-index: 10000; background-color: transparent; position: fixed; top: 0px; display: none; text-align: center; left: 0px; height: 3853px; width: 969px; padding-top: 125px;" class="rpx_popup_overlay"><div style="position: absolute; top: 0pt; left: 0pt; width: 100%; height: 100%; background-color: black; opacity: 0.4;"></div><table style="margin: auto; border-collapse: collapse; background-color: transparent; width: 440px;" class="rpx_popup_table"><tbody style="background-color: transparent;"><tr style="background-color: transparent;"><td style="border: 0px none rgb(255, 255, 255); margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0pt; color: rgb(255, 255, 255); background-color: transparent;"><div style="background-image: url(http://cdn.rpxnow.com/images/popup_bg.png/a7565f92533a6bdf05617e311e4a9833.png); background-color: transparent; position: relative; width: 440px;" class="rpx_popup_container"><span></span><div style="color: rgb(17, 17, 17); font-weight: bold; font-size: 13px; font-family: arial,sans-serif; text-align: right; height: 16px; cursor: pointer; position: absolute; right: 20px; top: 20px;">X</div></div></td></tr></tbody></table></div><div id="atffc"><object type="application/x-shockwave-flash" data="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/button1.swf" id="atff" width="1" height="1"><param value="transparent" name="wmode"><param value="always" name="allowScriptAccess"></object></div>
+<div>
+</div><div>
+
+	</div><table width="800" align="center" border="0" cellpadding="0" cellspacing="0" height="100%">
+<form name="aspnetForm" method="post" action="" onsubmit="javascript:return WebForm_OnSubmit();" id="aspnetForm"></form>
+<input name="__EVENTTARGET" id="__EVENTTARGET" value="" type="hidden">
+<input name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" type="hidden">
+<input name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTg2OTkzMzc1Mg9kFgJmD2QWAgIDD2QWBmYPZBYCAgEPFgIeBFRleHQF1gg8Yj5OZXcgQXJ0aWNsZXM6PC9iPiA8YSBocmVmPSdodHRwOi8vd3d3LmRldmFydGljbGVzLmNvbS9jL2EvSmF2YVNjcmlwdC9DcmVhdGluZy1Cb3VuY2luZy1FZmZlY3RzLXdpdGgtdGhlLUdYLUphdmFTY3JpcHQtQW5pbWF0aW9uLUZyYW1ld29yay8nIHRhcmdldD0nYmxhbmsnPkNyZWF0aW5nIEJvdW5jaW5nIEVmZmVjdHMgd2l0aCB0aGUgR1ggSmF2YVNjcmlwdCBBbmltYXRpb24gRnJhbWV3b3JrPC9hPiA8Zm9udCBjb2xvcj0nI0MwQzBDMCc+LTwvZm9udD4gPGEgaHJlZj0naHR0cDovL3d3dy5kZXZhcnRpY2xlcy5jb20vYy9hL0phdmFTY3JpcHQvTWFuaXB1bGF0aW5nLUJhY2tncm91bmQtQ29sb3JzLXdpdGgtdGhlLUdYLUphdmFTY3JpcHQtQW5pbWF0aW9uLUZyYW1ld29yay8nIHRhcmdldD0nYmxhbmsnPk1hbmlwdWxhdGluZyBCYWNrZ3JvdW5kIENvbG9ycyB3aXRoIHRoZSBHWCBKYXZhU2NyaXB0IEFuaW1hdGlvbiBGcmFtZXdvcms8L2E+IDxmb250IGNvbG9yPScjQzBDMEMwJz4tPC9mb250PiA8YSBocmVmPSdodHRwOi8vd3d3LmRldmFydGljbGVzLmNvbS9jL2EvSmF2YVNjcmlwdC9UaGUtR1gtSlMtQW5pbWF0aW9uLUZyYW1ld29yay8nIHRhcmdldD0nYmxhbmsnPlRoZSBHWCBKUyBBbmltYXRpb24gRnJhbWV3b3JrPC9hPiA8Zm9udCBjb2xvcj0nI0MwQzBDMCc+LTwvZm9udD4gPGEgaHJlZj0naHR0cDovL3d3dy5kZXZhcnRpY2xlcy5jb20vYy9hL1dlYi1TZXJ2aWNlcy9EZWFsaW5nLXdpdGgtTG9vc2UtQ291cGxpbmctaW4tYS1TZXJ2aWNlT3JpZW50ZWQtQXJjaGl0ZWN0dXJlLycgdGFyZ2V0PSdibGFuayc+RGVhbGluZyB3aXRoIExvb3NlIENvdXBsaW5nIGluIGEgU2VydmljZS1PcmllbnRlZCBBcmNoaXRlY3R1cmU8L2E+IDxmb250IGNvbG9yPScjQzBDMEMwJz4tPC9mb250PiA8YSBocmVmPSdodHRwOi8vd3d3LmRldmFydGljbGVzLmNvbS9jL2EvV2ViLVNlcnZpY2VzL0xvb3NlLUNvdXBsaW5nLWluLWEtU2VydmljZU9yaWVudGVkLUFyY2hpdGVjdHVyZS8nIHRhcmdldD0nYmxhbmsnPkxvb3NlIENvdXBsaW5nIGluIGEgU2VydmljZS1PcmllbnRlZCBBcmNoaXRlY3R1cmU8L2E+IDxmb250IGNvbG9yPScjQzBDMEMwJz4tPC9mb250PiBkAgEPD2QWBB4Hb25mb2N1cwUNdGhpcy52YWx1ZT0nJx4Jb25rZXlkb3duBWxpZiAoZXZlbnQud2hpY2g9PTEzIHx8IGV2ZW50LmtleUNvZGU9PTEzKSB7ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2N0bDAwJFNlYXJjaEJ0bicpLmNsaWNrKCk7cmV0dXJuIGZhbHNlO31kAgQPZBYOZg8PFgIfAAVxPGEgaHJlZj0nL2luZGV4LmFzcHgnPkhvbWU8L2E+ID4gPGEgaHJlZj0nL2FydGljbGVzL2FydGljbGUuYXNweD9kZXY9Mic+QVNQPC9hPiA6IFNpbXBsZSBBU1AuTkVUIENBUFRDSEEgVHV0b3JpYWxkZAIBDxYCHwAFB0FydGljbGVkAgIPDxYCHwAFBVNhcWliZGQCAw8WAh8ABQg0LzYvMjAwOWQCBA8WAh8ABR9TaW1wbGUgQVNQLk5FVCBDQVBUQ0hBIFR1dG9yaWFsZAIFDxYCHwAFyyE8cD5JIHdpbGwgc2hvdyB5b3UgaG93IHRvIGNyZWF0ZSBhIDxzdHJvbmc+QVNQLk5FVCBDYXB0Y2hhIGNvbnRyb2wgd2l0aG91dCB1c2luZyBhbnkgSFRUUCBIQU5ERUxSUzwvc3Ryb25nPiBvciB3aGF0IHNvIGV2ZXIuIHlvdSBjYW4gZWFzaWx5IHBsdWcgaXQgaW50byB5b3VyIHdlYiBwYWdlcy48L3A+DQo8cD5BbGwgeW91IG5lZWQgdG8gZG8gaXMgQ3JlYXRlIGEgQVNQWCBwYWdlLCB0aGF0IEFTUFggcGFnZSB3aWxsIGhhdmUgYSBjb250ZW50IHR5cGUgb2YgPHU+PHN0cm9uZz5pbWFnZS9qcGVnLDwvc3Ryb25nPjwvdT4gdGhlbiB3aXRoaW4gdGhlIGNvZGUtYmVoaW5kIGZpbGUgb2YgdGhhdCBhc3AgcGFnZSB3ZSB3aWxsIGJlIHVzaW5nIDx1PjxzdHJvbmc+c3lzdGVtLmRyYXdpbmcgPC9zdHJvbmc+PC91Pm5hbWVzcGFjZSB0byBjcmVhdGUgYSBkeW5hbWljIGltYWdlLjwvcD4NCjxwPlN5c3RlbSB3aWxsIGdlbmVyYXRlIDx1PjxzdHJvbmc+MiBSYW5kb20gbnVtYmVyczwvc3Ryb25nPjwvdT4sIGFuZCB0aGVuIGl0IHdpbGwgc3RvcmUgdGhlIHJlc3VsdCBvZiB0aGVzZSAyIG51bWJlcnMgaW50byBhIDx1PjxzdHJvbmc+U2Vzc2lvbiBWYXJpYWJsZTwvc3Ryb25nPjwvdT4uPC9wPg0KPHA+Rm9yIEV4YW1wbGU8L3A+DQo8cD5hID0gMiArIDMgKHdoZXJlIDIgYW5kIDMgYXJlIDIgcmFuZG9tIG51bWJlcnMpPC9wPg0KPHA+U2Vzc2lvbigmcXVvdDtBbnN3ZXImcXVvdDspID0gNTwvcD4NCjxwPnRoZW4gd2Ugd2lsbCBjcmVhdGUgYSBpbWFnZSB1c2luZyBTeXN0ZW0uZHJhd2luZyBuYW1lc3BhY2Ugd2l0aCB0aGUgdGV4dCA8c3Ryb25nPiZxdW90OyAyKyA1ID0gJnF1b3Q7IDwvc3Ryb25nPndpdGhpbiBpdC48YnIgLz4NCldlIHdpbGwgc3RvcmUgdGhlIHJlc3VsdCBpbnRvIGEgc2Vzc2lvbiB2YXJpYWJsZSwgc28gbGF0ZXIgb24gb3VyIHdlYnBhZ2Ugd2UgY2FuIHVzZSB0aGlzIHNlc3Npb24gdmFyaWFibGUgdG8gY29tcGFyZSB3aXRoIHdoYXQgdXNlciB0eXBlcy48L3A+DQo8cD5MZXRzIHNlZSB0aGUgY29kZSBvZiA8dT48c3Ryb25nPkNhcHRjaGEuYXNweDwvc3Ryb25nPjwvdT46PC9wPg0KPHA+PHN0cm9uZz5JbXBvcnRzIFN5c3RlbS5EcmF3aW5nPC9zdHJvbmc+PC9wPg0KPHA+PGVtPlBhcnRpYWwgQ2xhc3MgQ2FwdGNoYTxiciAvPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7IEluaGVyaXRzIFN5c3RlbS5XZWIuVUkuUGFnZTwvZW0+PC9wPg0KPHA+Jm5ic3A7PC9wPg0KPHA+Jm5ic3A7Jm5ic3A7Jm5ic3A7IFByaXZhdGUgU3ViIHJldHVybk51bWVyKCk8L3A+DQo8cD4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgRGltIG51bTEgQXMgTmV3IFJhbmRvbTxiciAvPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IERpbSBudW0yIEFzIE5ldyBSYW5kb208L3A+DQo8cD4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgRGltIG51bVExIEFzIEludGVnZXI8YnIgLz4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBEaW0gbnVtUTIgQXMgSW50ZWdlcjxiciAvPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IERpbSBRU3RyaW5nIEFzIFN0cmluZzwvcD4NCjxwPjxiciAvPg0KPHN0cm9uZz4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgbnVtUTEgPSBudW0xLk5leHQoMTAsIDE1KTxiciAvPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IG51bVEyID0gbnVtMS5OZXh0KDE3LCAzMSk8L3N0cm9uZz48L3A+DQo8cD4mbmJzcDs8L3A+DQo8cD4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgUVN0cmluZyA9IG51bVExLlRvU3RyaW5nICsgJnF1b3Q7ICsgJnF1b3Q7ICsgbnVtUTIuVG9TdHJpbmcgKyAmcXVvdDsgPSAmcXVvdDs8YnIgLz4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyA8c3Ryb25nPlNlc3Npb24oJnF1b3Q7YW5zd2VyJnF1b3Q7KSA9IG51bVExICsgbnVtUTI8L3N0cm9uZz48L3A+DQo8cD48YnIgLz4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyA8c3Ryb25nPkRpbSBiaXRtYXAgQXMgTmV3IEJpdG1hcCg4NSwgMzUpPGJyIC8+DQo8L3N0cm9uZz4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgRGltIEdyZnggQXMgR3JhcGhpY3MgPSBHcmFwaGljcy5Gcm9tSW1hZ2UoYml0bWFwKTxiciAvPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IERpbSBmb250IEFzIE5ldyBGb250KCZxdW90O0FyaWFsJnF1b3Q7LCAxOCwgRm9udFN0eWxlLkJvbGQsIEdyYXBoaWNzVW5pdC5QaXhlbCk8YnIgLz4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBEaW0gUmVjdCBBcyBOZXcgUmVjdGFuZ2xlKDAsIDAsIDEwMCwgNTApPC9wPg0KPHA+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IEdyZnguRmlsbFJlY3RhbmdsZShCcnVzaGVzLkJyb3duLCBSZWN0KTxiciAvPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IEdyZnguRHJhd1JlY3RhbmdsZShQZW5zLlBlYWNoUHVmZiwgUmVjdCkgJyBCb3JkZXI8YnIgLz4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyA8c3Ryb25nPkdyZnguRHJhd1N0cmluZyhRU3RyaW5nLCBmb250LCBCcnVzaGVzLkF6dXJlLCAwLCAwKTwvc3Ryb25nPjwvcD4NCjxwPiZuYnNwOzwvcD4NCjxwPjxiciAvPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IDxzdHJvbmc+UmVzcG9uc2UuQ29udGVudFR5cGUgPSAmcXVvdDtJbWFnZS9qcGVnJnF1b3Q7PC9zdHJvbmc+PGJyIC8+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgPHN0cm9uZz5iaXRtYXAuU2F2ZShSZXNwb25zZS5PdXRwdXRTdHJlYW0sIFN5c3RlbS5EcmF3aW5nLkltYWdpbmcuSW1hZ2VGb3JtYXQuSnBlZyk8L3N0cm9uZz48L3A+DQo8cD48YnIgLz4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBiaXRtYXAuRGlzcG9zZSgpPGJyIC8+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgR3JmeC5EaXNwb3NlKCk8L3A+DQo8cD4mbmJzcDs8L3A+DQo8cD4mbmJzcDsmbmJzcDsmbmJzcDs8ZW0+IEVuZCBTdWI8L2VtPjwvcD4NCjxwPjxlbT4mbmJzcDsmbmJzcDsmbmJzcDsgUHJvdGVjdGVkIFN1YiBQYWdlX0xvYWQoQnlWYWwgc2VuZGVyIEFzIE9iamVjdCwgQnlWYWwgZSBBcyBTeXN0ZW0uRXZlbnRBcmdzKSBIYW5kbGVzIE1lLkxvYWQ8L2VtPjwvcD4NCjxwPjxiciAvPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IDxzdHJvbmc+Q2FsbCBNZS5yZXR1cm5OdW1lcigpPC9zdHJvbmc+PC9wPg0KPHA+Jm5ic3A7PGVtPiZuYnNwOyZuYnNwOyBFbmQgU3ViPC9lbT48L3A+DQo8cD48YnIgLz4NCjxlbT5FbmQgQ2xhc3M8L2VtPjwvcD4NCjxwPiZuYnNwOzwvcD4NCjxwPjx1PjxzdHJvbmc+U28gdGhlIFBhZ2VfTG9hZCBldmVudCBHZW5lcmF0ZXMgYW4gSW1hZ2UuPC9zdHJvbmc+PC91PjwvcD4NCjxwPiZuYnNwOzwvcD4NCjxwPm5vdyB3ZSBjYW4gdXNlIHRoaXMgUGFnZSB3aXRoaW4gYW55IGFzcHggcGFnZSBmb3IgdmVyaWZpY2F0aW9uLiBGb3IgRXhhbXBsZSBoZXJlIGlzIGZvcm0yLmFzcHg8L3A+DQo8cD48c3Ryb25nPiZsdDthc3A6aW1hZ2UgcnVuYXQ9c2VydmVy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" type="hidden">
+
+
+<script type="text/javascript">
+<!--
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</script>
+
+
+<script src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/WebResource.js" type="text/javascript"></script>
+
+
+<script src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/WebResource_002.js" type="text/javascript"></script>
+<script type="text/javascript">
+<!--
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+// -->
+</script>
+
+    <tbody><tr>
+        <td valign="top" width="160" bgcolor="#ffffff" height="45">
+             <a href="http://knowlegezone.com/index.aspx"><img alt="KnowlegeZone.com, Share knowledge Gain knowledge" src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/Logo.gif" border="0"></a>
+        </td>
+        <td valign="top" width="660" align="right" bgcolor="#ffffff" height="45">
+                    <table width="100%" align="right" border="0" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td valign="top" width="100%" align="right">
+                                <ul id="list">
+                                        <li><a href="http://knowlegezone.com/pages/shoppingcart.aspx">Shopping cart software</a></li> 
+                                        <li><a href="http://knowlegezone.com/outsource/dataentry/india-dataentry/outsource-dataentry-cheap-data-entry">Outsourcing</a></li> 
+                                        <li><a href="http://knowlegezone.com/pages/customPost.aspx?t=a">Post Article</a></li>                    
+                                        <li><a href="http://knowlegezone.com/pages/customPost.aspx?t=q">Post Question</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 2px;" align="right">
+                                    <table width="100%" cellpadding="2" cellspacing="0">
+                                        <tbody><tr>
+                                            <td align="center">
+                                                
+<style>
+    #container {
+        font-family:Verdana;
+        font-size:11px;      
+    }
+    #container a:link {
+        color:#000000;
+        text-decoration:none; 
+    }
+        #container a:active {
+        color:#000000;
+        text-decoration:none;
+    }
+    #container a:hover {
+        color:#0000FF;
+        text-decoration:none;
+    }
+    #container a:visited {
+        color:#000000;
+        text-decoration:none;
+    }
+
+</style>
+
+<script language="javascript">
+    var i;
+    var pause;
+    
+    pause=false;
+    i  = 1
+    
+    function createScroll() {
+    
+        var div = document.getElementById("container");        
+        var dif = (div.scrollWidth - div.offsetWidth);
+        
+        div.scrollLeft = i;
+        
+        if(dif==div.scrollLeft) {
+            div.scrollLeft = 0
+            i = 1
+        }
+        
+        if(!pause) i = i + 1;
+        setTimeout("createScroll()",25)
+        
+    }
+    
+    window.onload = function() { createScroll() }
+</script>
+
+<div nowrap="" id="container" style="border-top: 1px solid rgb(192, 192, 192); border-bottom: 1px solid rgb(192, 192, 192); overflow: hidden; width: 350px; height: 13px;">
+   <table onmouseover="pause=true" onmouseout="pause=false" width="100%" cellpadding="0" cellspacing="0">
+    <tbody><tr>
+        <td nowrap="nowrap">         
+            <img src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/spacer.htm" width="345" height="1">
+                <b>New Articles:</b> <a href="http://www.devarticles.com/c/a/JavaScript/Creating-Bouncing-Effects-with-the-GX-JavaScript-Animation-Framework/" target="blank">Creating Bouncing Effects with the GX JavaScript Animation Framework</a> <font color="#c0c0c0">-</font> <a href="http://www.devarticles.com/c/a/JavaScript/Manipulating-Background-Colors-with-the-GX-JavaScript-Animation-Framework/" target="blank">Manipulating Background Colors with the GX JavaScript Animation Framework</a> <font color="#c0c0c0">-</font> <a href="http://www.devarticles.com/c/a/JavaScript/The-GX-JS-Animation-Framework/" target="blank">The GX JS Animation Framework</a> <font color="#c0c0c0">-</font> <a href="http://www.devarticles.com/c/a/Web-Services/Dealing-with-Loose-Coupling-in-a-ServiceOriented-Architecture/" target="blank">Dealing with Loose Coupling in a Service-Oriented Architecture</a> <font color="#c0c0c0">-</font> <a href="http://www.devarticles.com/c/a/Web-Services/Loose-Coupling-in-a-ServiceOriented-Architecture/" target="blank">Loose Coupling in a Service-Oriented Architecture</a> <font color="#c0c0c0">-</font> 
+            <img src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/spacer.htm" width="345" height="1">
+        </td>
+    </tr>
+   </tbody></table>
+    
+</div>
+
+                                            </td>
+                                            <td align="right">
+                                            
+                                            
+
+  
+    <input name="cx" value="partner-pub-4101572105736702:x995dy-sq99" type="hidden">
+    <input name="ie" value="ISO-8859-1" type="hidden">
+    <input name="ctl00$isearch" value="Search here..." id="ctl00_isearch" class="search" onfocus="this.value=''" onkeydown="if (event.which==13 || event.keyCode==13) {document.getElementById('ctl00$SearchBtn').click();return false;}" type="text">&nbsp;
+    <input name="ctl00$SearchBtn" value="Search" id="ctl00_SearchBtn" class="search" type="submit">&nbsp;
+  
+
+<script type="text/javascript" src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/brand.htm"></script>
+
+                                            
+&nbsp;
+                                            </td>
+                                        </tr>
+                                    </tbody></table>       
+                             </td>
+                        </tr>
+                    </tbody></table>
+        </td>
+    </tr>
+    
+    <tr>        
+        <td valign="top" width="140" bgcolor="#ffffff" height="80%"><span id="ctl00_lftpanel">
+<div class="lftmn_tab">
+
+    <ul>
+       <li><a href="http://knowlegezone.com/index.aspx">Home</a></li>
+        <li><a href="http://knowlegezone.com/articles/article.aspx?dev=2">ASP</a></li>
+        <li><a href="http://knowlegezone.com/articles/article.aspx?dev=3">JavaScript</a></li>
+        <li><a href="http://knowlegezone.com/articles/article.aspx?dev=4">PHP</a></li>
+         <li><a href="http://knowlegezone.com/articles/article.aspx?dev=5">SQL</a></li>
+         <li><a href="http://knowlegezone.com/articles/article.aspx?dev=6">Ecommerece</a></li>
+         <li><a href="http://knowlegezone.com/articles/article.aspx?dev=9">SEO / SEM</a></li>
+         <li><a href="http://knowlegezone.com/articles/article.aspx?dev=11">Free Software</a></li>
+	  <li><a href="http://knowlegezone.com/articles/article.aspx?dev=12">Entertainment</a></li>
+	<li><a href="http://knowlegezone.com/articles/article.aspx?dev=13">Information</a></li>
+         <li><a href="http://knowlegezone.com/articles/article.aspx?dev=8">Miscellaneous</a></li>
+    </ul>
+<br>
+<table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
+
+    <tbody><tr>
+        <td colspan="2" width="20%" align="left">
+<!-- WebHost4Life.com Code Begin -->
+<p align="center">
+<a href="http://www.webhost4life.com/default.asp?refid=highwingers">
+<img src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/banner3.gif" alt="Join WebHost4Life.com" width="120" border="0" height="60"></a>
+</p>
+<!-- WebHost4Life.com Code End -->
+	</td>
+    </tr>
+
+
+    <tr>
+        <td width="20%" align="right"><img src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/pin.gif">&nbsp;</td><td class="pin" valign="middle" width="80%" align="left"><a href="http://knowlegezone.com/pages/webhost.aspx">Free Web Hosting</a></td>
+    </tr>
+    <tr>
+        <td width="20%" align="right"><img src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/pin.gif">&nbsp;</td><td class="pin" valign="middle" width="80%" align="left"><a href="http://knowlegezone.com/pages/crm.aspx">Start Selling Online</a></td>
+    </tr>
+    
+   
+    <tr>
+        <td width="20%" align="right"><img src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/pin.gif">&nbsp;</td><td class="pin" valign="middle" width="80%" align="left"><a href="#" onclick="alert('Please email: mr.khan@gmail.com for details.');return false">Advertise with us</a></td>
+    </tr>
+    
+        <tr>
+        <td width="20%" align="right"><img src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/pin.gif">&nbsp;</td><td class="pin" valign="middle" width="80%" align="left"><a href="http://www.khanzone.com/" target="_blank">Bollywood Media</a></td>
+    </tr>
+    
+
+    
+
+
+</tbody></table>
+<br>
+<!--
+<div align=center>
+    <a target="_blank" href="http://www.iwebtool.com/top_sites/" title="Submit URL"><img border="0" src="http://www.iwebtool.com/images/top_sites/120x60.gif" alt="Submit URL"></a>
+</div>
+ -->
+</div>
+</span> </td>
+        <td valign="top" width="660" bgcolor="#ffffff" height="80%">
+             
+
+<script>
+
+function openTarget() {
+
+    var getDiv = document.getElementById("selfing")
+    var getDivA = getDiv.getElementsByTagName("a")
+
+    for(i=0; i<getDivA.length; i++) {
+            getDivA[i].target="_blank"
+    }
+    
+}
+
+window.onload = function() {openTarget(); createScroll()}
+</script>
+
+<h2 style="font-size: 12px;"><span id="ctl00_ContentPlaceHolder1_bCrumb" class="bcrumb"><a href="http://knowlegezone.com/index.aspx">Home</a> &gt; <a href="http://knowlegezone.com/articles/article.aspx?dev=2">ASP</a> : Simple ASP.NET CAPTCHA Tutorial</span></h2>
+
+<table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="98%" bgcolor="#e2dfdf" cellpadding="0" cellspacing="0">
+
+    <tbody><tr>
+        
+        <td style="padding: 3px; color: rgb(255, 255, 255);" width="60%" bgcolor="#959595"><span style="font-size: 13px;"><b>Article</b></span></td>
+        <td style="padding: 3px; color: rgb(255, 255, 255);" width="40%" bgcolor="#959595">
+            By: <b><span id="ctl00_ContentPlaceHolder1_author">Saqib</span></b> &nbsp;
+            Date: <b>4/6/2009</b>
+        </td>
+    </tr>
+    <tr>
+        
+        <td colspan="2"><h2 style="font-size: 12px;">Simple ASP.NET CAPTCHA Tutorial
+         </h2>
+        
+        </td>
+        
+    </tr>
+    <tr>
+        
+        <td colspan="2" id="selfing" style="font-size: small;">
+        
+        <div id="mainAdv" style="border: 1px solid rgb(212, 207, 207); padding: 3px; position: relative; float: right; text-align: left; width: 100px; background-color: rgb(233, 231, 231); font-size: x-small;" align="left">
+        <a target="_blank" href="http://knowlegezone.com/articles/submit.aspx?id=2">Post Your Article</a>
+        <br>
+        <a target="_blank" href="http://knowlegezone.com/articles/question.aspx?id=2">Post Your Question</a>
+        <br>
+        Post Comment Below
+        </div>
+        <p>I will show you how to create a <strong>ASP.NET Captcha control without using any HTTP HANDELRS</strong> or what so ever. you can easily plug it into your web pages.</p>
+<p>All you need to do is Create a ASPX page, that ASPX page will have a content type of <u><strong>image/jpeg,</strong></u> then within the code-behind file of that asp page we will be using <u><strong>system.drawing </strong></u>namespace to create a dynamic image.</p>
+<p>System will generate <u><strong>2 Random numbers</strong></u>, and then it will store the result of these 2 numbers into a <u><strong>Session Variable</strong></u>.</p>
+<p>For Example</p>
+<p>a = 2 + 3 (where 2 and 3 are 2 random numbers)</p>
+<p>Session("Answer") = 5</p>
+<p>then we will create a image using System.drawing namespace with the text <strong>" 2+ 5 = " </strong>within it.<br>
+We will store the result into a session variable, so later on our
+webpage we can use this session variable to compare with what user
+types.</p>
+<p>Lets see the code of <u><strong>Captcha.aspx</strong></u>:</p>
+<p><strong>Imports System.Drawing</strong></p>
+<p><em>Partial Class Captcha<br>
+&nbsp;&nbsp;&nbsp; Inherits System.Web.UI.Page</em></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; Private Sub returnNumer()</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dim num1 As New Random<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dim num2 As New Random</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dim numQ1 As Integer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dim numQ2 As Integer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dim QString As String</p>
+<p><br>
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; numQ1 = num1.Next(10, 15)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; numQ2 = num1.Next(17, 31)</strong></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; QString = numQ1.ToString + " + " + numQ2.ToString + " = "<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Session("answer") = numQ1 + numQ2</strong></p>
+<p><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Dim bitmap As New Bitmap(85, 35)<br>
+</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dim Grfx As Graphics = Graphics.FromImage(bitmap)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dim font As New Font("Arial", 18, FontStyle.Bold, GraphicsUnit.Pixel)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dim Rect As New Rectangle(0, 0, 100, 50)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Grfx.FillRectangle(Brushes.Brown, Rect)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Grfx.DrawRectangle(Pens.PeachPuff, Rect) ' Border<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Grfx.DrawString(QString, font, Brushes.Azure, 0, 0)</strong></p>
+<p>&nbsp;</p>
+<p><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Response.ContentType = "Image/jpeg"</strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>bitmap.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg)</strong></p>
+<p><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bitmap.Dispose()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Grfx.Dispose()</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;<em> End Sub</em></p>
+<p><em>&nbsp;&nbsp;&nbsp; Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load</em></p>
+<p><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Call Me.returnNumer()</strong></p>
+<p>&nbsp;<em>&nbsp;&nbsp; End Sub</em></p>
+<p><br>
+<em>End Class</em></p>
+<p>&nbsp;</p>
+<p><u><strong>So the Page_Load event Generates an Image.</strong></u></p>
+<p>&nbsp;</p>
+<p>now we can use this Page within any aspx page for verification. For Example here is form2.aspx</p>
+<p><strong>&lt;asp:image runat=server imgeurl="captcha.aspx"&gt;</strong></p>
+<p>now you can create a TextBox, have users enter some text into it,
+and then create a ANSWER button, upon clicking of ANSWER button compare
+the value of textbox with the Session variable Session("answer"), <strong>if both are same then Verification passed</strong>.</p>
+<p>if you have any questions, please reply to this post.</p>
+<p>Thanks</p>
+<p>&nbsp;- Saqib</p>
+<p>&nbsp;</p>
+    
+
+<br> 
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style">
+<a target="_blank" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=highwingers" class="addthis_button_compact at300m"><span class="at300bs at15t_compact"></span>Share</a>
+<span class="addthis_separator">|</span>
+<a title="Send to Facebook" target="_blank" href="http://www.addthis.com/bookmark.php?pub=highwingers&amp;v=250&amp;source=tbx-250&amp;tt=0&amp;s=facebook&amp;url=http%3A%2F%2Fknowlegezone.com%2Fdocuments%2F80%2FSimple-ASPNET-CAPTCHA-Tutorial%2F&amp;title=Simple%20ASP.NET%20CAPTCHA%20Tutorial&amp;content=&amp;lng=en" class="addthis_button_facebook at300b"><span class="at300bs at15t_facebook"></span></a>
+<a title="Send to MySpace" target="_blank" href="http://www.addthis.com/bookmark.php?pub=highwingers&amp;v=250&amp;source=tbx-250&amp;tt=0&amp;s=myspace&amp;url=http%3A%2F%2Fknowlegezone.com%2Fdocuments%2F80%2FSimple-ASPNET-CAPTCHA-Tutorial%2F&amp;title=Simple%20ASP.NET%20CAPTCHA%20Tutorial&amp;content=&amp;lng=en" class="addthis_button_myspace at300b"><span class="at300bs at15t_myspace"></span></a>
+<a title="Send to Google" target="_blank" href="http://www.addthis.com/bookmark.php?pub=highwingers&amp;v=250&amp;source=tbx-250&amp;tt=0&amp;s=google&amp;url=http%3A%2F%2Fknowlegezone.com%2Fdocuments%2F80%2FSimple-ASPNET-CAPTCHA-Tutorial%2F&amp;title=Simple%20ASP.NET%20CAPTCHA%20Tutorial&amp;content=&amp;lng=en" class="addthis_button_google at300b"><span class="at300bs at15t_google"></span></a>
+<a title="Tweet This" target="_blank" href="http://www.addthis.com/bookmark.php?pub=highwingers&amp;v=250&amp;source=tbx-250&amp;tt=0&amp;s=twitter&amp;url=http%3A%2F%2Fknowlegezone.com%2Fdocuments%2F80%2FSimple-ASPNET-CAPTCHA-Tutorial%2F&amp;title=Simple%20ASP.NET%20CAPTCHA%20Tutorial&amp;content=&amp;lng=en" class="addthis_button_twitter at300b"><span class="at300bs at15t_twitter"></span></a>
+<div class="atclear"></div></div>
+<script type="text/javascript" src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/addthis_widget.js"></script>
+<!-- AddThis Button END -->
+
+
+<br>
+
+	</td>
+        
+    </tr>
+    
+    <!-- Comment Reader -->    
+    <tr>    
+        <td colspan="2">
+        
+   
+
+<style>
+
+	.paging {
+
+	 font-size:15px;
+	 font-weight:bold;
+	 font-family:arial;
+	}
+
+</style>
+
+   <table width="98%" cellpadding="2" cellspacing="0">
+   
+  <tbody><tr>
+    <td align="center">
+            <!--  Ad Sense -->
+<p>
+
+<!-- Begin: AdBrite, Generated: 2009-08-16 22:55:08  -->
+<style type="text/css">
+   .adHeadline {font: bold 10pt Arial; text-decoration: underline; color: #0000FF;}
+   .adText {font: normal 10pt Arial; text-decoration: none; color: #000000;}
+</style>
+<script type="text/javascript">
+try{var AdBrite_Iframe=window.top!=window.self?2:1;var AdBrite_Referrer=document.referrer==''?document.location:document.referrer;AdBrite_Referrer=encodeURIComponent(AdBrite_Referrer);}catch(e){var AdBrite_Iframe='';var AdBrite_Referrer='';}
+document.write(String.fromCharCode(60,83,67,82,73,80,84));document.write(' src="http://ads.adbrite.com/mb/text_group.php?sid=1304801&br=1&dk=6170706c7920666f7220612063726564697420636172645f355f325f776562&col=3&ifr='+AdBrite_Iframe+'&ref='+AdBrite_Referrer+'" type="text/javascript">');document.write(String.fromCharCode(60,47,83,67,82,73,80,84,62));</script><script src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/text_group.js" type="text/javascript"></script></p><table id="mbtb" class="adbrite_table" width="100%"><tbody><tr>
+<td id="mbtd" valign="top" width="33%"><a class="adHeadline" target="_top" onmouseover="window.status='https://www.elephant-traffic.com/landing/?utm_source=Adbrite&amp;utm_campaign=Adbrite-keywords&amp;utm_medium=cpc'; return true;" onmouseout="window.status=' '; return true;" href="http://click.adbrite.com/mb/click.php?sid=1304801&amp;banner_id=13220933&amp;variation_id=1655378&amp;uts=1264339494&amp;cpc=302e3135&amp;keyword_id=1474020&amp;ab=171966511&amp;sscup=3f849f7e4010d882d176ede9135a9725&amp;sscra=ee7c6c4ceb0604f493b662fb49377d39&amp;ub=2046227587&amp;guid=0bb86c94-4cf9-46eb-a2a2-6d67608b83a4&amp;odc=grx&amp;rs=&amp;r="><b><span class="adHeadline">Direct navigation traffic</span></b></a><br>
+<a class="adText" target="_top" onmouseover="window.status='https://www.elephant-traffic.com/landing/?utm_source=Adbrite&amp;utm_campaign=Adbrite-keywords&amp;utm_medium=cpc'; return true;" onmouseout="window.status=' '; return true;" href="http://click.adbrite.com/mb/click.php?sid=1304801&amp;banner_id=13220933&amp;variation_id=1655378&amp;uts=1264339494&amp;cpc=302e3135&amp;keyword_id=1474020&amp;ab=171966511&amp;sscup=3f849f7e4010d882d176ede9135a9725&amp;sscra=ee7c6c4ceb0604f493b662fb49377d39&amp;ub=2046227587&amp;guid=0bb86c94-4cf9-46eb-a2a2-6d67608b83a4&amp;odc=grx&amp;rs=&amp;r="><span class="adText">Quality traffic 40% cheaper than PPC with 50% higher conversions!</span></a></td>
+<td id="mbtd" valign="top" width="33%"><a class="adHeadline" target="_top" onmouseover="window.status='http://www.income4learners.biz/makemoneytoday.html'; return true;" onmouseout="window.status=' '; return true;" href="http://click.adbrite.com/mb/click.php?sid=1304801&amp;banner_id=13275084&amp;variation_id=1676857&amp;uts=1264339494&amp;cpc=302e3235&amp;keyword_id=1474020&amp;ab=171966511&amp;sscup=549ce453cac8e368b1d6324503caf39e&amp;sscra=ee7c6c4ceb0604f493b662fb49377d39&amp;ub=2046227587&amp;guid=0bb86c94-4cf9-46eb-a2a2-6d67608b83a4&amp;odc=grx&amp;rs=&amp;r="><b><span class="adHeadline">How I Made $27K in 1 Wk</span></b></a><br>
+<a class="adText" target="_top" onmouseover="window.status='http://www.income4learners.biz/makemoneytoday.html'; return true;" onmouseout="window.status=' '; return true;" href="http://click.adbrite.com/mb/click.php?sid=1304801&amp;banner_id=13275084&amp;variation_id=1676857&amp;uts=1264339494&amp;cpc=302e3235&amp;keyword_id=1474020&amp;ab=171966511&amp;sscup=549ce453cac8e368b1d6324503caf39e&amp;sscra=ee7c6c4ceb0604f493b662fb49377d39&amp;ub=2046227587&amp;guid=0bb86c94-4cf9-46eb-a2a2-6d67608b83a4&amp;odc=grx&amp;rs=&amp;r="><span class="adText">Discover How a One man business made $27k in one week.Free Report at</span></a></td>
+<td id="mbtd" valign="top" width="33%"><a class="adHeadline" target="_top" onmouseover="window.status='http://www.programdna.com/public/communitydna.htm'; return true;" onmouseout="window.status=' '; return true;" href="http://click.adbrite.com/mb/click.php?sid=1304801&amp;banner_id=13280725&amp;variation_id=1678960&amp;uts=1264339494&amp;cpc=302e3235&amp;keyword_id=1474020&amp;ab=171966511&amp;sscup=a2a9243c3eff588f8e99a6662d677fe0&amp;sscra=ee7c6c4ceb0604f493b662fb49377d39&amp;ub=2046227587&amp;guid=0bb86c94-4cf9-46eb-a2a2-6d67608b83a4&amp;odc=grx&amp;rs=&amp;r="><b><span class="adHeadline">Start Your Card Community</span></b></a><br>
+<a class="adText" target="_top" onmouseover="window.status='http://www.programdna.com/public/communitydna.htm'; return true;" onmouseout="window.status=' '; return true;" href="http://click.adbrite.com/mb/click.php?sid=1304801&amp;banner_id=13280725&amp;variation_id=1678960&amp;uts=1264339494&amp;cpc=302e3235&amp;keyword_id=1474020&amp;ab=171966511&amp;sscup=a2a9243c3eff588f8e99a6662d677fe0&amp;sscra=ee7c6c4ceb0604f493b662fb49377d39&amp;ub=2046227587&amp;guid=0bb86c94-4cf9-46eb-a2a2-6d67608b83a4&amp;odc=grx&amp;rs=&amp;r="><span class="adText">Outsourced prepaid cards, cash cars, reward cards System.  Low setup!</span></a></td></tr><tr>
+<td id="mbtd" valign="top" width="33%"><a class="adHeadline" target="_top" onmouseover="window.status='http://www.getyourexbacknow.com/just_break_up3.html'; return true;" onmouseout="window.status=' '; return true;" href="http://click.adbrite.com/mb/click.php?sid=1304801&amp;banner_id=11370836&amp;variation_id=470008&amp;uts=1264339494&amp;cpc=302e3131&amp;keyword_id=1474020&amp;ab=171966511&amp;sscup=bdde23929540c69200195ecc1f6b5eb1&amp;sscra=ee7c6c4ceb0604f493b662fb49377d39&amp;ub=2046227587&amp;guid=0bb86c94-4cf9-46eb-a2a2-6d67608b83a4&amp;odc=grx&amp;rs=&amp;r="><b><span class="adHeadline">Just Break Up?</span></b></a><br>
+<a class="adText" target="_top" onmouseover="window.status='http://www.getyourexbacknow.com/just_break_up3.html'; return true;" onmouseout="window.status=' '; return true;" href="http://click.adbrite.com/mb/click.php?sid=1304801&amp;banner_id=11370836&amp;variation_id=470008&amp;uts=1264339494&amp;cpc=302e3131&amp;keyword_id=1474020&amp;ab=171966511&amp;sscup=bdde23929540c69200195ecc1f6b5eb1&amp;sscra=ee7c6c4ceb0604f493b662fb49377d39&amp;ub=2046227587&amp;guid=0bb86c94-4cf9-46eb-a2a2-6d67608b83a4&amp;odc=grx&amp;rs=&amp;r="><span class="adText">Want 'em back? What to Do &amp; Say To Win Them Back. Start Now!</span></a></td>
+<td id="mbtd" valign="top" width="33%"><a class="adHeadline" target="_top" onmouseover="window.status='http://www.fiweh.com/home'; return true;" onmouseout="window.status=' '; return true;" href="http://click.adbrite.com/mb/click.php?sid=1304801&amp;banner_id=13113252&amp;variation_id=1605072&amp;uts=1264339494&amp;cpc=302e3235&amp;keyword_id=1474020&amp;ab=171966511&amp;sscup=882114f0ca89f5697744103c9cf38d7d&amp;sscra=ee7c6c4ceb0604f493b662fb49377d39&amp;ub=2046227587&amp;guid=0bb86c94-4cf9-46eb-a2a2-6d67608b83a4&amp;odc=grx&amp;rs=&amp;r="><b><span class="adHeadline">FiWEH.com Music Service</span></b></a><br>
+<a class="adText" target="_top" onmouseover="window.status='http://www.fiweh.com/home'; return true;" onmouseout="window.status=' '; return true;" href="http://click.adbrite.com/mb/click.php?sid=1304801&amp;banner_id=13113252&amp;variation_id=1605072&amp;uts=1264339494&amp;cpc=302e3235&amp;keyword_id=1474020&amp;ab=171966511&amp;sscup=882114f0ca89f5697744103c9cf38d7d&amp;sscra=ee7c6c4ceb0604f493b662fb49377d39&amp;ub=2046227587&amp;guid=0bb86c94-4cf9-46eb-a2a2-6d67608b83a4&amp;odc=grx&amp;rs=&amp;r="><span class="adText">Dedicated to Reggae &amp; Soca Music</span></a></td></tr></tbody></table><span id="adbriteinline_93735873" name="undefined"><script type="text/javascript" src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/inline_url_keywords.js"></script></span>
+<div><a class="adHeadline" target="_top" href="http://www.adbrite.com/mb/commerce/purchase_form.php?opid=1304801&amp;afsid=1">Your Ad Here</a></div>
+<!-- End: AdBrite -->
+
+
+        <!-- End  -->
+
+
+
+
+	
+    </td>
+   </tr>
+   
+   
+   <tr>
+    <td style="font-size: larger;"><b>Comments.</b></td>
+   </tr>
+    <tr>
+        <td>
+            
+                       <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+                           <tbody><tr>
+                                <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595">Comment/Solution Posted By: <b>Jason</b>&nbsp;&nbsp;&nbsp; Date: <b>4/6/2009 3:14:00 PM</b></td>
+                           </tr>
+                            <tr>
+                                <td colspan="2" style="padding: 10px; font-size: small;" align="left">thanks</td>
+                           </tr>               
+                        </tbody></table>  
+                        <br>              
+                
+                       <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+                           <tbody><tr>
+                                <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595">Comment/Solution Posted By: <b>Eric</b>&nbsp;&nbsp;&nbsp; Date: <b>5/14/2009 8:32:00 AM</b></td>
+                           </tr>
+                            <tr>
+                                <td colspan="2" style="padding: 10px; font-size: small;" align="left">Thank you :]</td>
+                           </tr>               
+                        </tbody></table>  
+                        <br>              
+                
+                       <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+                           <tbody><tr>
+                                <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595">Comment/Solution Posted By: <b>ashkan</b>&nbsp;&nbsp;&nbsp; Date: <b>6/5/2009 11:39:00 AM</b></td>
+                           </tr>
+                            <tr>
+                                <td colspan="2" style="padding: 10px; font-size: small;" align="left">very nice tutorial thank you</td>
+                           </tr>               
+                        </tbody></table>  
+                        <br>              
+                
+                       <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+                           <tbody><tr>
+                                <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595">Comment/Solution Posted By: <b>simp</b>&nbsp;&nbsp;&nbsp; Date: <b>6/10/2009 6:36:00 PM</b></td>
+                           </tr>
+                            <tr>
+                                <td colspan="2" style="padding: 10px; font-size: small;" align="left">Thanks, not bad. </td>
+                           </tr>               
+                        </tbody></table>  
+                        <br>              
+                
+                       <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+                           <tbody><tr>
+                                <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595">Comment/Solution Posted By: <b>ilya</b>&nbsp;&nbsp;&nbsp; Date: <b>6/25/2009 1:19:00 PM</b></td>
+                           </tr>
+                            <tr>
+                                <td colspan="2" style="padding: 10px; font-size: small;" align="left">Great tutorial,but is it safe to store the answer in session?</td>
+                           </tr>               
+                        </tbody></table>  
+                        <br>              
+                
+                       <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+                           <tbody><tr>
+                                <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595">Comment/Solution Posted By: <b>Saqib</b>&nbsp;&nbsp;&nbsp; Date: <b>6/26/2009 1:49:00 AM</b></td>
+                           </tr>
+                            <tr>
+                                <td colspan="2" style="padding: 10px; font-size: small;" align="left">You are simply storing the answer for current user. it cant not be hijacked so easily.<br>
+<br>
+if you are really concerned then have your Form hosted over HTTPS channel.</td>
+                           </tr>               
+                        </tbody></table>  
+                        <br>              
+                
+                       <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+                           <tbody><tr>
+                                <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595">Comment/Solution Posted By: <b>websmartindia.com</b>&nbsp;&nbsp;&nbsp; Date: <b>7/20/2009 12:43:00 PM</b></td>
+                           </tr>
+                            <tr>
+                                <td colspan="2" style="padding: 10px; font-size: small;" align="left">good work</td>
+                           </tr>               
+                        </tbody></table>  
+                        <br>              
+                
+                       <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+                           <tbody><tr>
+                                <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595">Comment/Solution Posted By: <b>Jeevesh</b>&nbsp;&nbsp;&nbsp; Date: <b>8/28/2009 6:14:00 AM</b></td>
+                           </tr>
+                            <tr>
+                                <td colspan="2" style="padding: 10px; font-size: small;" align="left">Cool stuff, thanx</td>
+                           </tr>               
+                        </tbody></table>  
+                        <br>              
+                
+                       <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+                           <tbody><tr>
+                                <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595">Comment/Solution Posted By: <b>biduth</b>&nbsp;&nbsp;&nbsp; Date: <b>9/23/2009 5:02:00 AM</b></td>
+                           </tr>
+                            <tr>
+                                <td colspan="2" style="padding: 10px; font-size: small;" align="left">Fine</td>
+                           </tr>               
+                        </tbody></table>  
+                        <br>              
+                
+                       <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+                           <tbody><tr>
+                                <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595">Comment/Solution Posted By: <b>samson daniel</b>&nbsp;&nbsp;&nbsp; Date: <b>1/15/2010 6:00:00 AM</b></td>
+                           </tr>
+                            <tr>
+                                <td colspan="2" style="padding: 10px; font-size: small;" align="left">Iam dont know the asp language can you please send me the whole codes in the pages where it works please to my email.<br>
+thanks<br>
+daniel<br>
+could be very helpfull </td>
+                           </tr>               
+                        </tbody></table>  
+                        <br>              
+                
+                       <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+                           <tbody><tr>
+                                <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595">Comment/Solution Posted By: <b>samson daniel</b>&nbsp;&nbsp;&nbsp; Date: <b>1/19/2010 4:38:00 AM</b></td>
+                           </tr>
+                            <tr>
+                                <td colspan="2" style="padding: 10px; font-size: small;" align="left">My
+dear friend I dont know asp please can you help me to download the
+whole page in a readymade winrar or winzip file and then i can read all
+the pages please let me know the url where i could get the complete
+pages.<br>
+thanks,<br>
+daniel</td>
+                           </tr>               
+                        </tbody></table>  
+                        <br>              
+                
+                       <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+                           <tbody><tr>
+                                <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595">Comment/Solution Posted By: <b>skhan</b>&nbsp;&nbsp;&nbsp; Date: <b>1/19/2010 1:07:00 PM</b></td>
+                           </tr>
+                            <tr>
+                                <td colspan="2" style="padding: 10px; font-size: small;" align="left">Samson, above the complete page code, just save it into a Vb.net Class.</td>
+                           </tr>               
+                        </tbody></table>  
+                        <br>              
+                
+                       <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+                           <tbody><tr>
+                                <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595">Comment/Solution Posted By: <b>bmw</b>&nbsp;&nbsp;&nbsp; Date: <b>1/20/2010 10:42:00 PM</b></td>
+                           </tr>
+                            <tr>
+                                <td colspan="2" style="padding: 10px; font-size: small;" align="left">hi,<br>
+i have created two files. but i am not getting image displayed. can you send me files, please?<br>
+<br>
+thx</td>
+                           </tr>               
+                        </tbody></table>  
+                        <br>              
+                
+                       <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+                           <tbody><tr>
+                                <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595">Comment/Solution Posted By: <b>skhan</b>&nbsp;&nbsp;&nbsp; Date: <b>1/21/2010 12:54:00 AM</b></td>
+                           </tr>
+                            <tr>
+                                <td colspan="2" style="padding: 10px; font-size: small;" align="left">@bmw,send me your code at saqi19(AT)hotmail.com, i will see whats wrong with your code.</td>
+                           </tr>               
+                        </tbody></table>  
+                        <br>              
+                
+        </td>
+    </tr>
+     <tr>
+        <td align="center"><span id="ctl00_ContentPlaceHolder1_readComment_ipager" class="paging"><br><b>Pages :</b> 1&nbsp;</span></td>
+   </tr>
+
+
+
+   </tbody></table>   
+            
+
+        </td>
+    </tr>
+    <!-- End Reader -->
+    
+    
+    <!-- Comment Managment -->    
+    <tr>    
+        <td colspan="2">
+        
+        
+               <table style="border: 1px solid rgb(149, 149, 149); padding: 6px;" width="95%" align="center" bgcolor="white" cellpadding="0" cellspacing="0">
+               <tbody><tr>
+                    <td colspan="2" style="padding: 3px; color: rgb(255, 255, 255);" bgcolor="#959595"><b>Post Comment or Solution</b> &nbsp; OR &nbsp; <b>Sign in using <a style="color: rgb(255, 255, 255);" class="rpxnow" onclick="return false;" href="https://knowlegezone.rpxnow.com/openid/v2/signin?token_url=http%3a%2f%2fwww.knowlegezone.com%2fpages%2fdocument.aspx%3fsvc%3dy%26item%3d80">Google/Aol/Yahoo/Msn/OpenID</a></b> </td>
+               </tr>
+                <tr>
+                    <td style="padding: 3px;" align="right"><b>Your Name:</b> </td>
+                    <td style="padding: 3px;"><input name="ctl00$ContentPlaceHolder1$postcomment$iname" id="ctl00_ContentPlaceHolder1_postcomment_iname" type="text">
+                    <span id="ctl00_ContentPlaceHolder1_postcomment_inameV" style="color: Red; visibility: hidden;">Name is Required</span>
+                    
+                    </td>
+               </tr>
+               
+                <tr>
+                    <td style="padding: 3px;" align="right"><b>Your Email:</b> </td>
+                    <td style="padding: 3px;"><input name="ctl00$ContentPlaceHolder1$postcomment$yemail" id="ctl00_ContentPlaceHolder1_postcomment_yemail" type="text">
+                    <span id="ctl00_ContentPlaceHolder1_postcomment_RequiredFieldValidator1" style="color: Red; visibility: hidden;">Email is Required</span>
+                    
+                    </td>
+               </tr>
+               
+               
+                <tr>
+                    <td style="padding: 3px;" valign="top" align="right"><b>Comments:</b> </td>
+                    <td style="padding: 3px;">                    
+                    <textarea name="ctl00$ContentPlaceHolder1$postcomment$icomment" rows="15" cols="55" id="ctl00_ContentPlaceHolder1_postcomment_icomment"></textarea>
+                    <br><span id="ctl00_ContentPlaceHolder1_postcomment_icommentV" style="color: Red; visibility: hidden;">Please enter some content</span>
+                    </td>
+               </tr>
+               
+               <tr>
+               
+                <td><b>Please Verify:</b></td>
+                <td valign="top">
+                <table>
+                    <tbody><tr>
+                        <td><img id="ctl00_ContentPlaceHolder1_postcomment_CapImg" src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/Captcha.jpg" style="border-width: 0px;"></td>
+                        <td>
+                                            <input name="ctl00$ContentPlaceHolder1$postcomment$cAnswer" id="ctl00_ContentPlaceHolder1_postcomment_cAnswer" style="width: 60px;" type="text"> (Type Answer)
+                          <span id="ctl00_ContentPlaceHolder1_postcomment_iCapV" style="color: Red; visibility: hidden;">Please Verify</span>
+                        </td>
+                    </tr>
+                </tbody></table>          
+                
+
+                </td>
+               
+               </tr>
+               
+                <tr>
+                    <td colspan="2" style="padding: 3px;" align="center">
+                    <textarea name="ctl00$ContentPlaceHolder1$postcomment$spammer" rows="2" cols="20" id="ctl00_ContentPlaceHolder1_postcomment_spammer" style="display: none;"></textarea>
+                    <input name="ctl00$ContentPlaceHolder1$postcomment$subt" value="Post Comment" onclick='javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$ContentPlaceHolder1$postcomment$subt", "", true, "postComment", "", false, false))' id="ctl00_ContentPlaceHolder1_postcomment_subt" type="submit"><br><br></td>
+               </tr>
+
+                <tr>
+                    <td colspan="2" style="padding: 3px;" align="center">
+
+<script src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/widget" type="text/javascript"></script>
+<script type="text/javascript">
+  RPXNOW.overlay = true;
+  RPXNOW.language_preference = 'en';
+</script>
+
+<br>
+
+
+
+		   </td>
+			</tr>
+               
+               </tbody></table>
+         
+    
+
+
+        </td>
+    </tr>
+    <!-- End Comments -->
+
+</tbody></table>
+<br>
+
+        </td>
+    
+    </tr>
+    <tr>
+    <td id="footer" colspan="2" valign="top" width="800" align="center" height="1%">
+    <a href="http://knowlegezone.com/pages/about.aspx" style="color: Black; text-decoration: none;">About us</a> | KnowlegeZone.com, 2008
+
+    </td>
+    </tr>
+ 
+<script type="text/javascript">
+<!--
+var Page_Validators =  new Array(document.getElementById("ctl00_ContentPlaceHolder1_postcomment_inameV"), document.getElementById("ctl00_ContentPlaceHolder1_postcomment_RequiredFieldValidator1"), document.getElementById("ctl00_ContentPlaceHolder1_postcomment_icommentV"), document.getElementById("ctl00_ContentPlaceHolder1_postcomment_iCapV"));
+// -->
+</script>
+
+<script type="text/javascript">
+<!--
+var ctl00_ContentPlaceHolder1_postcomment_inameV = document.all ? document.all["ctl00_ContentPlaceHolder1_postcomment_inameV"] : document.getElementById("ctl00_ContentPlaceHolder1_postcomment_inameV");
+ctl00_ContentPlaceHolder1_postcomment_inameV.controltovalidate = "ctl00_ContentPlaceHolder1_postcomment_iname";
+ctl00_ContentPlaceHolder1_postcomment_inameV.errormessage = "Name is Required";
+ctl00_ContentPlaceHolder1_postcomment_inameV.validationGroup = "postComment";
+ctl00_ContentPlaceHolder1_postcomment_inameV.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_postcomment_inameV.initialvalue = "";
+var ctl00_ContentPlaceHolder1_postcomment_RequiredFieldValidator1 = document.all ? document.all["ctl00_ContentPlaceHolder1_postcomment_RequiredFieldValidator1"] : document.getElementById("ctl00_ContentPlaceHolder1_postcomment_RequiredFieldValidator1");
+ctl00_ContentPlaceHolder1_postcomment_RequiredFieldValidator1.controltovalidate = "ctl00_ContentPlaceHolder1_postcomment_yemail";
+ctl00_ContentPlaceHolder1_postcomment_RequiredFieldValidator1.errormessage = "Email is Required";
+ctl00_ContentPlaceHolder1_postcomment_RequiredFieldValidator1.validationGroup = "postComment";
+ctl00_ContentPlaceHolder1_postcomment_RequiredFieldValidator1.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_postcomment_RequiredFieldValidator1.initialvalue = "";
+var ctl00_ContentPlaceHolder1_postcomment_icommentV = document.all ? document.all["ctl00_ContentPlaceHolder1_postcomment_icommentV"] : document.getElementById("ctl00_ContentPlaceHolder1_postcomment_icommentV");
+ctl00_ContentPlaceHolder1_postcomment_icommentV.controltovalidate = "ctl00_ContentPlaceHolder1_postcomment_icomment";
+ctl00_ContentPlaceHolder1_postcomment_icommentV.errormessage = "Please enter some content";
+ctl00_ContentPlaceHolder1_postcomment_icommentV.validationGroup = "postComment";
+ctl00_ContentPlaceHolder1_postcomment_icommentV.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_postcomment_icommentV.initialvalue = "";
+var ctl00_ContentPlaceHolder1_postcomment_iCapV = document.all ? document.all["ctl00_ContentPlaceHolder1_postcomment_iCapV"] : document.getElementById("ctl00_ContentPlaceHolder1_postcomment_iCapV");
+ctl00_ContentPlaceHolder1_postcomment_iCapV.controltovalidate = "ctl00_ContentPlaceHolder1_postcomment_cAnswer";
+ctl00_ContentPlaceHolder1_postcomment_iCapV.errormessage = "Please Verify";
+ctl00_ContentPlaceHolder1_postcomment_iCapV.validationGroup = "postComment";
+ctl00_ContentPlaceHolder1_postcomment_iCapV.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_ContentPlaceHolder1_postcomment_iCapV.initialvalue = "";
+// -->
+</script>
+
+<input name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWCQKv1sQeAueVzIoIApTtwZsPAveS5Z0NAqezxPAEAp6J7KUOAunNgKIJAtKMypoCAsW6gMkEVTV4TXZxVe1yErtJPaYYzF8651k=" type="hidden">
+
+
+<script type="text/javascript">
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</script>
+        
+</tbody></table>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-5440493-1");
+pageTracker._trackPageview();
+</script>
+<iframe src="Simple%20ASP.NET%20CAPTCHA%20Tutorial_files/sh10.htm" style="border: 0pt none ; height: 1px; width: 1px; position: absolute; z-index: 100000; left: 0pt; top: 0pt;" id="_atssh"></iframe></body></html>
